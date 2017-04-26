@@ -1,0 +1,42 @@
+<table class = 'table table-striped table-hover'>
+  <thead>
+    <tr><a href="#" class ="pull-right">Results :<span class="badge"><%=@customers.count%></span></a></tr><br/>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Contact</th>
+      <th>Address</th>
+      <th>Subscription Status</th>
+      <th>Pay Status</th>
+      <th>Customer Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each_with_index do |customer, index| %>
+      <tr>
+        <td><%= customer.id %></td>
+        <td>
+          <%= customer.full_name %>
+        </td>
+        <td><%= customer.mobile_number %></td>
+        <td>
+          <%= customer_wing_society(customer) %>
+          <br/>
+          <%= customer_area(customer) %>
+        </td>
+        <td><%= subscription_status(customer.subscriptions) %></td>
+        <td><%= customer_pay_status(customer.subscriptions) %></td>
+        <td><%= customer_type(customer) %></td>
+        <td width="105">
+          <%= link_to t('.edit',
+                        default: t('helpers.links.edit')),
+                        edit_customer_path(customer),
+                        class: 'btn btn-default btn-xs' %>
+          <%=link_to 'view', customer_path(customer), class: 'btn btn-default btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%=will_paginate @customers, renderer: BootstrapPagination::Rails %>

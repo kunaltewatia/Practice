@@ -1,0 +1,16 @@
+<%- model_class = CustomNotification -%>
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%=t '.title',
+           default: 'Custom Notification',
+           model: model_class.model_name.human.titleize %>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <%= render partial: 'form' %>
+      </div>
+    </div>
+  </div>
+</div>

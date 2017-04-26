@@ -1,0 +1,9 @@
+body {
+  font-size: 18px;
+  color: gray;
+  background-color: #FFFFCC;
+}
+ol,ul,dl {
+  *margin-right:0px;
+  padding:4 20px;
+}

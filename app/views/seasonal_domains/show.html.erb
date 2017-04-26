@@ -1,0 +1,7 @@
+<%- model_class = SeasonalDomain -%>
+<div class='page-header'>
+  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
+</div>
+
+
+<%= link_to "All Seasonal Domains", root_url(:subdomain => false) %>

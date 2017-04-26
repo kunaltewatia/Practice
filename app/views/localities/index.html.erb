@@ -1,0 +1,48 @@
+<%- model_class = Locality -%>
+<div class='page-header'>
+  <h1>
+    <%=t '.title', default: model_class.model_name.human.pluralize.titleize %>
+  </h1>
+</div>
+<%= link_to t('.new',
+              default: t('helpers.links.new')),
+              new_locality_path,
+              class: 'btn btn-primary' %>
+<table class='table table-striped table-hover'>
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:area_id) %></th>
+      <th><%= model_class.human_attribute_name(:is_active?) %></th>
+      <th><%=t '.actions', default: t('helpers.actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @localities.each do |locality| %>
+      <tr>
+        <td><%= locality.id %></td>
+        <td><%= locality.name %></td>
+        <td><%= locality.area.name %></td>
+        <td><%= is_active? (locality.is_active) %></td>
+        <td>
+          <%= link_to t('.edit',
+                        default: t('helpers.links.edit')),
+                        edit_locality_path(locality),
+                        class: 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', default: t('helpers.links.destroy')),
+                        locality_path(locality),
+                        :method => :delete,
+                        :data => {
+                          :confirm => t('.confirm',
+                                        default: t('helpers.links.confirm',
+                                                   default: 'Are you sure?'))
+                        },
+                      class: 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @localities, renderer: BootstrapPagination::Rails %>
+

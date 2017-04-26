@@ -1,0 +1,68 @@
+<div class="container">
+  <h3><%= link_to @subscription.mobile_user.full_name, customer_path(id: @subscription.mobile_user_id) %></h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <span class="pull-left">
+        Start Date :  <%= show_date(@subscription.start_at) %>
+      </span>
+      <span class="pull-right">
+        End Date :  <%= show_date(@subscription.ends_at) %>
+      </span></br>
+    </li>
+    <li class="list-group-item">
+      <span class="pull-left">
+       Pack :  <%= @subscription.plan.pack.name %>
+      </span>
+      <span class="pull-right">
+        Plan : <%= @subscription.plan.name %>
+      </span></br>
+    </li>
+    <li class="list-group-item">
+      <span class="pull-left">
+       Pause Dates : <%= show_dates(@subscription.subscription_pauses.pluck(:date))%>
+      </span>
+      </br>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <h3>History</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>No. </th>
+        <th>Strart Date</th>
+        <th>End Date</th>
+        <th>Type</th>
+        <th>Order ID</th>
+        <th>Price</th>
+        <th>Payment Type</th>
+        <th>Payment Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @subscription.payment_histories.each_with_index do |pay_history, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= show_date(pay_history.starts_date) %></td>
+           <td><%= show_date(pay_history.ends_date) %></td>
+          <td><%= pay_history.subscription_type %></td>
+          <td><%= pay_history.order_id %></td>
+          <td><%= pay_history.price %></td>
+          <td><%= payment_type(pay_history.payment_type) %></td>
+          <td><%= pay_status(pay_history.is_paid) %></td>
+          <td>
+            <% if pay_history.is_paid %>
+              <%= link_to 'Paid', '#', class: 'paid btn btn-default disabled', "data_id": pay_history.id %>
+            <% else %>
+              <%= link_to 'Paid', "/payment_histories/#{pay_history.id}?is_paid=true", class: 'paid btn btn-default', method: 'patch', "data-confirm": "Are you sure to mark as paid?" %>
+            <% end %>
+            <%= link_to 'Delete', payment_history_path(pay_history), method: 'delete', "data-confirm":"Are you sure to delete this Payment?", class: 'btn btn-default' if pay_history.subscription_type == 'Renew' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= render 'payment_modal' %>

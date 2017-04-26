@@ -1,0 +1,59 @@
+<div class="desktopRight">
+  <div class="orangeBg">
+    <div class="confirmWrap">
+
+      Date: <%= Date.today.strftime("%d %b %Y") %> 
+      <% if @orders.blank? %>
+       <div class="confirmHeading">Today, we don't have any orders.</div>
+      <% else %>
+        <div class="confirmHeading">
+          <table style="border: 1px solid grey;">
+            <tr style="border: 1px solid grey;">
+              <td style="border: 1px solid grey;">Product </td>
+              <td style="border: 1px solid grey;">Count</td>
+            </tr>
+            <% @orders.group_by(&:plan_id).each do |plan_id, orders| %>
+              <% order = orders.last %>
+              <tr>
+                <td style="border: 1px solid grey;"><%= order.product_name + ' ' + order.try(:plan).try(:price).to_s  + '/' + order.try(:plan).try(:name) %></td>
+                <td style="border: 1px solid grey;"><%= orders.count %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+
+        <h4>Orders </h4>
+        <div class="confirmHeading">
+          <table style="border: 1px solid grey;">
+            <tr style="border: 1px solid grey;">
+              <td style="border: 1px solid grey;">No. </td>
+              <td style="border: 1px solid grey;">Name</td>
+              <td style="border: 1px solid grey;">Type</td>
+              <td style="border: 1px solid grey;">Product</td>
+              <td style="border: 1px solid grey;">Quantity</td>
+              <td style="border: 1px solid grey;">Base Price</td>
+              <td style="border: 1px solid grey;">Discount</td>
+              <td style="border: 1px solid grey;">Price</td>
+            </tr>
+            <% @orders.each_with_index do |order, index| %>
+              <tr>
+                <td style="border: 1px solid grey;"><%= index + 1 %></td>
+                <td style="border: 1px solid grey;"><%= order.user_name + ', ' + order.address %></td>
+                <td style="border: 1px solid grey;"><%= order.payment_str %></td>
+                <td style="border: 1px solid grey;"><%= order.product_name + ' ' + order.try(:plan).try(:price).to_s  + '/' + order.try(:plan).try(:name) %></td>
+                <td style="border: 1px solid grey;"><%= order.unit %></td>
+                <td style="border: 1px solid grey;"><%= order.plan_price.to_i * order.unit.to_i %></td>
+                <td style="border: 1px solid grey;"><%= order.discount %></td>
+                <td style="border: 1px solid grey;"><%= order.price %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+

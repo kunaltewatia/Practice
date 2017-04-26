@@ -1,0 +1,42 @@
+<%= form_tag customers_path, remote: true, html: { class: 'form-inline customer' }, method: 'get' do %>
+  <div class="row">
+    <div class="col-sm-12" >
+       <div class="right-inner-addon">
+          <i class="fa fa-search"></i>
+          <%= search_field_tag 'f_search', params[:f_search], class: 'form-control', placeholder: 'Firstname | Lastname | Contact | Wing | Flat' %>
+       </div>
+    </div>
+  </div></br>
+
+  <div class = 'row'>
+    <div class = 'col-sm-2'>
+       <%= select_tag 'type', options_for_select([ 'Verified', 'Unverified', 'Offline' ], params[:type]),
+         { class: 'form-control', prompt: 'Customer Type' } %>
+    </div>
+    <div class = 'col-sm-2'>
+      <%= select_tag 'subs_status', options_for_select([ 'Active', 'Inactive', 'Expired' ],params[:subs_status]), { class: 'form-control col-sm-2',
+        prompt: 'Subsription Status'} %>
+    </div>
+    <div class = 'col-sm-2'>
+      <%= select_tag 'pay_status', options_for_select([ 'Paid', 'Unpaid' ],
+      params[:pay_status]), { class: 'form-control col-sm-2',  prompt: 'Payment Status' }  %>
+    </div>
+     <div class = 'col-sm-2'>
+      <%= select_tag 'f_area', options_from_collection_for_select(@areas, 'id', 'name', params[:area]), { class: 'form-control col-sm-2', prompt: 'Select Area'} %>
+    </div>
+    <div class = 'col-sm-2'>
+      <%= select_tag 'f_locality', '', { class: 'form-control col-sm-2',  prompt: 'Select Locality' }  %>
+    </div>
+     <div class = 'col-sm-2'>
+      <%= select_tag 'f_society', '', { class: 'form-control col-sm-2',  prompt: 'Select Society' }  %>
+    </div>
+  </div><br/>
+  <div class="row">
+     <div class = 'col-sm-11' >
+      <%= submit_tag 'Find', name: nil, class: 'btn btn-primary pull-right' %>
+    </div>
+    <div class = 'col-sm-1'>
+      <%= link_to 'Reset', customers_url, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

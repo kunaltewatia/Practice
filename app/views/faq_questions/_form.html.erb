@@ -1,0 +1,57 @@
+<%= form_for @faq_question, html: { class: 'form-horizontal service' } do |f| %>
+
+  <% if @faq_question.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@faq_question.errors.count, "error") %> prohibited this service from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @faq_question.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :faq_category_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :faq_category_id,
+         options_from_collection_for_select(@faq_categories, 'id', 'name',
+                                            @faq_question.faq_category_id),
+         { prompt: 'Select Service' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@faq_question[:faq_category_id]) %>
+  </div>
+
+
+  <div class='control-group'>
+    <%= f.label :title, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    <%= error_span(@faq_question[:title]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :description, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.cktext_area :description, class: 'form-control' %>
+    </div>
+    <%= error_span(@faq_question[:description]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'form-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div>
+    <%= error_span(@faq_question[:is_active]) %>
+  </div><br/>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            faq_category_faq_questions_path(@faq_question.faq_category_id), class: 'btn btn-default' %>
+<% end %>

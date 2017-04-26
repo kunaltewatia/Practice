@@ -1,0 +1,41 @@
+<%- model_class = Plan -%>
+<div class='page-header'>
+  <h1><%=t '.title', default: model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<%= link_to t('.new', default: t('helpers.links.new')),
+            new_plan_path,
+            class: 'btn btn-primary' %>
+
+<table class='table table-striped table-hover'>
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:product) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:price) %></th>
+      <th><%= model_class.human_attribute_name(:city) %></th>
+      <th><%=t '.actions', default: t('helpers.actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @plans.each_with_index do |plan, index| %>
+      <tr>
+        <td><%= model_index(index) %></td>
+        <td><%= plan.product.name %></td>
+        <td><%= plan.name %></td>
+        <td><%= plan.price %></td>
+        <td><%= plan.city_id %></td>
+        <td>
+          <%= link_to t('.edit', default: t('helpers.links.edit')),
+                      edit_plan_path(plan), class: 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', default: t('helpers.links.destroy')),
+                      delete_plan_path(plan),
+                      data: { confirm: t('.confirm', default: t('helpers.links.confirm', default: 'Are you sure?')) },
+                      class: 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @plans, renderer: BootstrapPagination::Rails %>

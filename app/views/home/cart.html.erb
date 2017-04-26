@@ -1,0 +1,129 @@
+<div class="desktopLeft" style='background: url("<%= @order.product.side_url %>")'>
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+  <h1>
+        Fresh &amp; Genuine, Organically Ripened
+        <span><%= @order.product.name %></span>
+      </h1>
+</div>
+  <div class="desktopRight">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="/home?city_id=<%= params[:city_id]%>" class="back"></a>
+          <div class="title"><%= @order.product.name %></div>
+          </div>
+          <div class="btn-group pull-right navBtn">
+            <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <ul class="dropdown-menu">
+              <li><a href="/complaint?city_id=<%= params[:city_id]%>">Add a Complaint</a></li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+    <div class="banner" style='background: url("<%= @order.product.banner_url %>")'>
+      <!-- <h1>Enjoy the Summer <br>
+      with Best Quality Mangoes</h1> -->
+      <h1>
+        Fresh &amp; Genuine, Organically Ripened
+        <span><%= @order.product.name %></span>
+      </h1>
+    </div>
+    <div class="container cart">
+      <div class="row">
+        <div class="col-xs-12 ">
+          <%= form_for @order, url: url_for(controller: 'home', action: 'create_order'), method: :post, html: { id: 'order_form' } do |f| %>
+            <%= f.hidden_field :product_id, value: f.object.product_id %>
+            <%= error_span(@order[:product_id]) %>
+            <%= f.hidden_field :id, value: f.object.id %>
+            <%= f.hidden_field :plan_id, value: f.object.plan_id %>
+            <%= f.hidden_field :city_id, value: params[:city_id] %>
+            <div class="formHeading">
+              <%= @order.product.name %>
+            </div>
+            <div class="subHeading">
+              Rs <%= @order.plan.price %> / <%= @order.plan.name %>
+            </div>
+            <div class="form-group clearfix">
+              <input class="qButton qtyminus" type="button" value="-">
+              <%= f.number_field :unit, placeholder: "Qty.", min: 1, value: (@order.unit.to_i || 1), class: 'form-control moreQuantity qty', readonly: 'readonly' %>
+              <%= error_span(@order[:unit]) %>
+              <input class="qButton qtyplus" type="button" value="+">
+              <div class="priceInfo active">
+                <% if @order.unit.to_i <= 1 %>
+                  <strike id='base_price'></strike>
+                  <span id='price'> Rs. <%= @order.plan.price %>/-</span>
+                <% else %>
+                  <% if @order.product.is_discounted %>
+                    <strike id='base_price'> Rs. <%=  @order.plan.price * @order.unit.to_i %> /-</strike>
+                  <% end %>
+                  <span id='price'> Rs. <%= @order.price %>/-</span>
+                <% end %>
+              </div>
+            </div>
+            <% if f.object.product.is_discounted %>
+              <div class="discountWrap active">
+                <%= @text %>
+              </div>
+            <% end %>
+            <div class="form-group">
+              <div class="selectWrap">
+                <%= f.select :area_id, options_from_collection_for_select(@areas, 'id', 'name', @order.area_id), { prompt: 'Select Area' },{class: 'form-control', data: { validation: 'required', validation_error_msg: 'Please Select Area' }} %>
+                <label for="order_area_id">Select Area</label>
+                <%= error_span_text(@order, :area_id) %>
+              </div>
+            </div>
+            <div class="hideBeforeSelect">
+              <div class="form-group">
+                <%= f.text_field :user_name, placeholder: "Full Name", class: 'form-control', data: { validation: 'required', validation_error_msg: 'Please enter Full Name' } %>
+                <label for="order_user_name">Full Name</label>
+                <%= error_span_text(@order, :user_name) %>
+              </div>
+              <div class="form-group">
+                <%= f.text_area :address, placeholder: "Address", class: 'form-control', rows: 3, data: { validation: 'required', validation_error_msg: 'Please enter Address' } %>
+                <label for="order_address">Address</label>
+                <%= error_span_text(@order, :address) %>
+              </div>
+              <div class="form-group">
+                <%= f.telephone_field :mobile_number, placeholder: "Mobile Number", class: 'form-control', id: 'mobile_number', maxlength: "10", data: { validation: 'number', validation_allowing: 'range[1111111111;9999999999]', validation_error_msg: 'Please enter valid Mobile Number' } %>
+                <label for="mobile_number">Mobile Number</label>
+                <%= error_span_text(@order, :mobile_number) %>
+              </div>
+              <div class="list payment radioWrap">
+                <div class="heading">Choose Payment Option</div>
+                <% PAYMENT_TYPE.each do |str, value| %>
+                  <label class="item item-radio">
+                    <%= radio_button_tag('order[payment_type]', value, checked = (f.object.payment_type.to_s == value.to_s)) %>
+
+                    <div class="item-content">
+                      <%= str %>
+                    </div>
+                    <i class="radio-icon ion-android-done"></i>
+                  </label>
+                <% end %>
+              </div>
+              <div class="deliveryMsg">
+                Next day delivery (between 5 - 9 PM)
+              </div>
+
+            </div>
+            <div class="btnWrap">
+            <button type="submit" class="btn btn-block btn-default buyNow active" id='order_button'>
+              <i id='saving'>
+                <% unless @order.discount.to_i.zero? %>
+                  Your Savings: Rs.<%= @order.discount %>/-
+                <% end %>
+              </i>
+              <br> Total:
+              <% if @order.price %>
+                <span id='price1'>Rs.<%= @order.price %>/-</span>
+              <% else %>
+                <span id='price1'>Rs.<%= Plan.find(@order.plan_id).price %>/-</span>
+              <% end %>
+              <span class="btnText">Buy Now</span>
+            </button>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>

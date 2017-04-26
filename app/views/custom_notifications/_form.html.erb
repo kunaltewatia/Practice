@@ -1,0 +1,77 @@
+<%= form_for @custom_notification, html: { class: 'form-horizontal locality' } do |f| %>
+
+    <% if @custom_notification.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@custom_notification.errors.count, 'error') %>
+          prohibited this locality from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @custom_notification.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group row">
+    <%= f.label :status, class: 'col-sm-2 form-control-label' %>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-3">
+      <%= f.label :status, 'All', class: 'form-control form-control-label' %>
+    </div>
+    <div class="col-sm-1">
+      <%= f.radio_button :status, '0', checked: true, class: 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :status, 'Verified', class: 'form-control form-control-label' %>
+    </div>
+    <div class="col-sm-1">
+      <%= f.radio_button :status, '1', class: 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label :status, 'Unverified', class: 'form-control form-control-label' %>
+    </div>
+    <div class="col-sm-1">
+      <%= f.radio_button :status, '2', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :notification_type, class: 'col-sm-3 form-control-label' %>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-1">
+      <%= f.check_box :is_sms, {class: "form-control", checked: true} %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label 'SMS', class: 'form-control' %>
+    </div>
+    <div class="col-sm-1">
+      <%= f.check_box :is_notification, {class: "form-control", checked: true} %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.label 'Notification', class: 'form-control' %>
+    </div>
+  </div>
+
+   <div class='control-group'>
+    <%= f.label :message, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_area :message, class: 'form-control', onKeyDown: "limitText(this.form.custom_notification_message,this.form.countdown,160);", onKeyUp: "limitText(this.form.custom_notification_message,this.form.countdown,160);" %>
+    </div>
+    <font size="1">(Maximum characters: 160)<br>
+    You have <input readonly type="text" name="countdown" size="3" value="160"> characters left.</font>
+  </div>
+
+  <br/>
+  <%= f.submit 'Send Notification', class: 'btn btn-primary' %>
+
+<% end %>

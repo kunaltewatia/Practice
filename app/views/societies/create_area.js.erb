@@ -1,0 +1,9 @@
+<% if @target.errors.any? %>
+  $('.modal-body').html("<%= j render(partial: 'societies/common_form',
+                                      locals: { target: 'Area' }) %>");
+  $('#area_city_id').val($('#society_city_id').val());
+<% else %>
+  $('#location_modal').modal('hide');
+  $('#area_list').html("<%= j render(partial: 'societies/area_field', locals: {
+    localities: @localities }) %>");
+<% end %>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style type="text/css" media="screen">
+      h3 { color: #428bca; }
+      table {
+        display: table;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <h3> New Customers :</h3><br/>
+    <% if @customers.present? %>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |customer| %>
+            <tr>
+              <td><%= customer.id %></td>
+              <td>
+                <%= customer.full_name %>
+              </td>
+              <td><%= customer.mobile_number %></td>
+              <td>
+                <%= customer.address_flat_society.join(',') %><br/>
+                <%= customer.address_area_city.join(',') %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <h4> Sorry! no new registrations today.</h4>
+    <% end %>
+    <br/>
+    <h3> New Subscriptions:</h3><br/><br/>
+    <% if @subscriptions.present? %>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Pack</th>
+            <th>Plan</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @subscriptions.each do |subscription| %>
+            <tr>
+              <td><%= subscription.id %></td>
+              <td>
+                <%= subscription.mobile_user.full_name %>
+              </td>
+              <td>
+                <%= subscription.mobile_user.mobile_number %>
+              </td>
+              <td>
+                <%= subscription.plan.pack.name %>
+              </td>
+               <td>
+                <%= subscription.plan.name %>
+              </td>
+              <td><%= subscription.start_at.strftime('%d %b %Y') %></td>
+              <td>
+                <%= subscription.ends_at.strftime('%d %b %Y') %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+        <h4> Sorry! no new subscriptions today.</h4>
+    <%end%>
+  </body>
+</html>

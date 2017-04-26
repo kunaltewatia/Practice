@@ -1,0 +1,11 @@
+<li class="dropdown <% if ['countries', 'states', 'cities', 'areas', 'localities', 'societies', 'wings'].include?(controller.controller_name) %> active <%end%>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-map-marker fa-fw"></i> Locations <span class="caret"></span></a>
+  <ul class="dropdown-menu">
+<!--     <li class="<%#= active?('societies') %>"><%#= link_to 'Societies', societies_path %></li>
+    <li class="<%#= active?('localities') %>"><%#= link_to 'Localities', localities_path %></li> -->
+    <li class="<%= active?('areas') %>"><%= link_to 'Areas', areas_path %></li>
+    <li class="<%= active?('cities') %>"><%= link_to 'Cities', cities_path %></li>
+    <li class="<%= active?('states') %>"><%= link_to 'States', states_path %></li>
+    <li class="<%= active?('countries') %>"><%= link_to 'Countries', countries_path %></li>
+  </ul>
+</li>

@@ -1,0 +1,31 @@
+<%- model_class = Feedback -%>
+<div class='page-header'>
+  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class='dl-horizontal'>
+  <dt><strong><%= model_class.human_attribute_name(:customer) %>:</strong></dt>
+  <dd><%= @feedback.mobile_user.full_name if  @feedback.mobile_user.present? %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:feedback_category) %>:</strong></dt>
+  <dd><%= @feedback.feedback_category.name if @feedback.feedback_category.present? %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:feedback) %>:</strong></dt>
+  <dd><%= @feedback.text.html_safe if @feedback.text %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:admin_comment) %>:</strong></dt>
+  <dd><%= @feedback.admin_comment.html_safe if @feedback.admin_comment %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_resolved) %>:</strong></dt>
+  <dd><%= @feedback.is_resolved %></dd>
+</dl>
+
+<%= link_to t('.back', default: t('helpers.links.back')),
+              :back, class: 'btn btn-default'  %>
+<%= link_to t('.edit', default: t('helpers.links.edit')),
+              edit_feedback_path(@feedback), class: 'btn btn-default' %>
+<%= link_to t('.destroy', default: t('helpers.links.destroy')),
+              feedback_path(@feedback),
+              method: 'delete',
+              data: {
+                confirm: t('.confirm',
+                           default: t('helpers.links.confirm',
+                                      default: 'Are you sure?'))
+              },
+              class: 'btn btn-danger' %>

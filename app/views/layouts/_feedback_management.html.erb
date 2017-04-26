@@ -1,0 +1,7 @@
+<li class="dropdown <% if ['feedbacks', 'feedback_categories'].include?(controller.controller_name) %> active <%end%>">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i>Feedbacks <span class="caret"></span></a>
+	<ul class="dropdown-menu">
+	  <li class="<%= active?('feedbacks') %>"><%= link_to 'Feedback', feedbacks_path %></li>
+    <li class="<%= active?('feedback_categories') %>"><%= link_to 'Feedback Categories', feedback_categories_path %></li>
+	</ul>
+</li>

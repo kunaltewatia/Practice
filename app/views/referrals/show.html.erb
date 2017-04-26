@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mobile user:</strong>
+  <%= @referral.mobile_user %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @referral.contact %>
+</p>
+
+<p>
+  <strong>Is converted:</strong>
+  <%= @referral.is_converted %>
+</p>
+
+<%= link_to 'Edit', edit_referral_path(@referral) %> |
+<%= link_to 'Back', referrals_path %>

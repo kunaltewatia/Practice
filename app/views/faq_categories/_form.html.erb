@@ -1,0 +1,63 @@
+<%= form_for @faq_category, html: { class: 'form-horizontal faq_category' } do |f| %>
+    <% if @faq_category.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@faq_category.errors.count, 'error') %>
+          prohibited this locality from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @faq_category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :service_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :service_id,
+                   options_from_collection_for_select(@services, 'id', 'name',
+                                                      @faq_category.service_id),
+                   { prompt: 'Select Service' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@faq_category[:service_id]) %>
+  </div>
+
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@faq_category[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :description, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.cktext_area :description, class: 'form-control' %>
+    </div>
+    <%= error_span(@faq_category[:description]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'form-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div><br/>
+    <%= error_span(@faq_category[:is_active]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= link_to t('.cancel',
+                    default: t('helpers.links.cancel')),
+                    faq_categories_path,
+                    class: 'btn btn-default' %>
+  </div>
+<% end %>

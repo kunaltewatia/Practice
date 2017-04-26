@@ -1,0 +1,3 @@
+# SubscriptionPausesHelper
+module SubscriptionPausesHelper
+end

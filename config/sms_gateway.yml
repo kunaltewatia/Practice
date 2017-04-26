@@ -1,0 +1,23 @@
+default: &default
+  gateway_url: 'http://smshorizon.co.in/api/sendsms.php'
+  default_params:
+    user: 'kvijay'
+    apikey: 'RTQL9D25ZaRLJ35oPGhZ'
+    senderid: 'FROOLS'
+    type: 'txt'
+  otp_messages:
+    user_app: 'Dear Customer, you have subscribed for Frools, To verify your account use the OTP : :otp_code'
+  referral_msg: 'Hello there! Now receive fresh fruits everyday on subscription. Download Frools app now by clicking the link below: frools.com'
+  invite_msg: 'Hello there! Now receive fresh fruits everyday on subscription. Please install app :invitation_url'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
+demo:
+  <<: *default

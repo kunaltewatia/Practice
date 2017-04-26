@@ -1,0 +1,11 @@
+I"ñ(function() {
+  $(document).ready(function() {
+    return $(document).on("change", "#city_id", function(e) {
+      return $("#homeLink").attr("href", "/home?=" + e.target.value);
+    });
+  });
+
+  $('#myModal').modal('hide');
+
+}).call(this);
+:ET

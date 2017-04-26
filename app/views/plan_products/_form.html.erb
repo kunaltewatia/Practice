@@ -1,0 +1,63 @@
+<%= form_for @plan_product, html: { class: 'form-horizontal plan_product' } do |f| %>
+
+  <% if @plan_product.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@plan_product.errors.count, 'error') %> prohibited this plan_product from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @plan_product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :product_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :product_id, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan_product[:product_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :package_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :package_id, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan_product[:package_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :measurement_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :measurement_id, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan_product[:measurement_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :date, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :date, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan_product[:date]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :quantity, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :quantity, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan_product[:quantity]) %>
+  </div>
+
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            plan_products_path, class: 'btn btn-default' %>
+
+<% end %>

@@ -1,0 +1,76 @@
+<%= form_for @locality, html: { class: 'form-horizontal locality' } do |f| %>
+
+    <% if @locality.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@locality.errors.count, 'error') %>
+          prohibited this locality from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @locality.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :area_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :area_id,
+                   options_from_collection_for_select(@areas, 'id', 'name',
+                                                      @locality.area_id),
+                   { prompt: 'Select Area' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@locality[:area_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@locality[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div>
+    <%= error_span(@locality[:is_active]) %>
+  </div>
+  <h4> Select Available Services </h4>
+  <% @services.each_with_index do |service, index| %>
+    <% if (!@service_ids.nil?) && (@service_ids.include? service.id) %>
+      <%= hidden_field_tag "locality[locality_services_attributes[#{index}][id]]",
+        @locality.locality_services[@service_ids.index(service.id)]['id'] %>
+
+      <%= hidden_field_tag "locality[locality_services_attributes[#{index}][_destroy]]" %>
+      <%= check_box_tag "locality[locality_services_attributes[#{index}][service_id]]",
+        service.id, selected: true %>
+      <%= label_tag service.name %>
+    <% else %>
+      <%= hidden_field_tag "locality[locality_services_attributes[#{index}][id]]"%>
+      <%= hidden_field_tag "locality[locality_services_attributes[#{index}][_destroy]]" %>
+      <%= check_box_tag "locality[locality_services_attributes[#{index}][service_id]]",
+        service.id %>
+      <%= label_tag service.name %>
+    <% end %>
+    <br/>
+    <script  ="text/javascript">
+      mark_destroy("<%= index %>");
+    </script>
+  <% end %>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel',
+                default: t('helpers.links.cancel')),
+                localities_path,
+                class: 'btn btn-default' %>
+
+<% end %>

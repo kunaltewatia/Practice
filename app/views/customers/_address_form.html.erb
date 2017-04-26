@@ -1,0 +1,99 @@
+<div class='form-group'>
+  <%= address_fields.label :country_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <%= address_fields.select :country_id,
+                 options_from_collection_for_select(@countries, 'id', 'name'
+                ), { prompt: 'Select Country' },{class: 'form-control'} %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :state_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <% if @customer.address.state.nil? %>
+      <%= address_fields.select :state_id, {},
+        { prompt: 'Select State' },{class: 'form-control'} %>
+    <% else %>
+      <%= address_fields.select :state_id,
+        [[@customer.address.state.name, @customer.address.state.id]],
+          { prompt: 'Select State' },{class: 'form-control'} %>
+    <% end %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :city_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <% if @customer.address.city.nil? %>
+      <%= address_fields.select :city_id, {},
+          { prompt: 'Select City' },{class: 'form-control'} %>
+    <% else %>
+      <%= address_fields.select :city_id,
+        [[@customer.address.city.name, @customer.address.city.id]],
+          { prompt: 'Select City' },{class: 'form-control'} %>
+    <% end %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :area_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <% if @customer.address.area.nil? %>
+      <%= address_fields.select :area_id,{},
+        { prompt: 'Select Area' },{class: 'form-control'} %>
+    <% else %>
+      <%= address_fields.select :area_id,
+        [[@customer.address.area.name,@customer.address.area.id]],
+          { prompt: 'Select Area' },{class: 'form-control'} %>
+    <% end %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :locality_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <% if @customer.address.locality.nil? %>
+      <%= address_fields.select :locality_id, {},
+                { prompt: 'Select Locality' },{class: 'form-control'} %>
+    <% else %>
+      <%= address_fields.select :locality_id,
+        [[@customer.address.locality.name, @customer.address.locality.id]],
+          { prompt: 'Select Locality' },{class: 'form-control'} %>
+    <% end %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :society_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <% if @customer.address.society.nil? %>
+      <%= address_fields.select :society_id, {},
+        { prompt: 'Select Society' }, {class: 'form-control'} %>
+    <% else %>
+      <%= address_fields.select :society_id,
+        [[@customer.address.society.name, @customer.address.society.id]],
+          { prompt: 'Select Society' }, {class: 'form-control'} %>
+    <% end %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :wing_id, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <% if @customer.address.wing.nil? %>
+      <%= address_fields.select :wing_id, {}, { prompt: 'Select Wing' },
+        {class: 'form-control'} %>
+    <% else %>
+      <%= address_fields.select :wing_id,
+        [[@customer.address.wing.name, @customer.address.wing.id]],
+          { prompt: 'Select Wing' }, {class: 'form-control'} %>
+    <% end %>
+  </div>
+</div>
+
+<div class='form-group'>
+  <%= address_fields.label :flat_no, class: 'control-label col-sm-3' %>
+  <div class='col-sm-8'>
+    <%= address_fields.text_field :flat_no, class: 'form-control' %>
+  </div>
+</div>

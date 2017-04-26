@@ -1,0 +1,49 @@
+
+<%= form_for @locality_service, html: { class: 'form-horizontal pack' } do |f| %>
+
+  <% if @locality_service.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@locality_service.errors.count, 'error') %> prohibited this Locality-Service from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @locality_service.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :service_id, class: 'form-label' %>
+    <div class='controls'>
+      <%= f.select :service_id, options_from_collection_for_select(@services, 'id', 'name', @locality_service.service_id), { prompt: 'Select Service' },
+       {class: 'form-control'} %>
+    </div>
+    <%= error_span(@locality_service[:service_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :locality_id, class: 'form-label' %>
+    <div class='controls'>
+      <%= f.select :locality_id, options_from_collection_for_select(@localities, 'id', 'name', @locality_service.locality_id), { prompt: 'Select Locality' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@locality_service[:locality_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'form-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div>
+    <%= error_span(@locality_service[:is_active]) %>
+  </div><br/>
+
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            locality_services_path, class: 'btn btn-default' %>
+
+<% end %>

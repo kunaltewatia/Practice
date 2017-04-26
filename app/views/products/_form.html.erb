@@ -1,0 +1,91 @@
+<%= form_for @product, html: { class: 'form-horizontal product' } do |f| %>
+
+  <% if @product.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@product.errors.count, 'error') %> prohibited this product from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :service_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :service_id, options_from_collection_for_select(@services, 'id', 'name', @product.service_id), { prompt: 'Select Service' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@product[:service_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@product[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label 'Discount Enable', class: 'control-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_discounted, class: 'form-control' %>
+    </div>
+    <%= error_span(@product[:is_discounted]) %>
+  </div>
+
+  <% unless f.object.new_record? %>
+    <div class='control-group'>
+      <div class='controls'>
+        <%= image_tag(f.object.banner_url(:thumb)) %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :banner, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.file_field :banner, class: 'form-control' %>
+    </div>
+  </div>
+
+  <% unless f.object.new_record? %>
+    <div class='control-group'>
+      <div class='controls'>
+        <%= image_tag(f.object.listing_url(:thumb)) %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :listing, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.file_field :listing, class: 'form-control' %>
+    </div>
+  </div>
+
+  <% unless f.object.new_record? %>
+    <div class='control-group'>
+      <div class='controls'>
+        <%= image_tag(f.object.side_url(:thumb)) %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :side, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.file_field :side, class: 'form-control' %>
+    </div>
+  </div>
+  <br/>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            products_path, class: 'btn btn-default' %>
+<% end %>

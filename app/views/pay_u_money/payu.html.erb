@@ -1,0 +1,73 @@
+<% if @order.payment_type == '3' %>
+  <form method="post" action="<%= Settings.paytm_url %>" name="f1" id= 'paytm-form'>
+    <% @param_list.keys.each do |key| %>
+      <input type="hidden" name="<%= key %>" value="<%= @param_list[key] %>">
+      <input type="hidden" name="CHECKSUMHASH" value="<%= @checksum_hash %>">
+    <% end %>
+  </form>
+<% else %>
+  <% payment_form_for_payu Settings.payu_key, Settings.payu_salt,
+        txnid: @order.txt_id,
+        amount: @order.price,
+        productinfo: @order.plan.name,
+        firstname: @order.user_name,
+        email: "",
+        phone: "",
+        surl: request.base_url + '/payment_success',
+        furl: request.base_url + '/payment_failure',
+        udf1: @order.id,
+        drop_category: "AMEX,COD,EMI,IVR,CASH",
+        html: { id: 'payment-form', style: 'display: none' }
+  %>
+<% end %>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Congrat's</title>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <style>
+        html, body {
+          height: 100%;
+        }
+      body {
+        font-family: 'Open Sans', sans-serif;
+        padding: 20px;
+        font-size: 18px;
+        line-height: 28px;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        box-sizing:border-box;
+      }
+      h3 {
+        position: relative;
+        top: 45%;
+        margin-top: -28px;
+        margin:0;
+        text-align: center;
+        color:#333;
+        font-size: 16px;
+        line-height: 24px;
+        background: url(../assets/load.gif) center top no-repeat;
+        background-size: 32px 32px;
+        padding-top: 40px;
+      }
+        </style>
+    </head>
+    <body>
+      <h3> Loading...</h3>
+
+      <script type="text/javascript">
+        setTimeout(function() {
+          <% if @order.payment_type == '3' %>
+            document.getElementById("paytm-form").submit();
+          <% else %>
+            document.getElementById("payment-form").submit();
+          <% end %>
+        },300)
+      </script>
+    </body>
+</html>

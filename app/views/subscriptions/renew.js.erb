@@ -1,0 +1,11 @@
+$('.subscription-body').html("<%= j render(partial: 'renew_form') %>")
+$('#renew_start_at').datepicker({
+  dateFormat: 'dd M yy',
+  changeMonth: true,
+  changeYear: true,
+  minDate: new Date("<%= @subscription.ends_at + 1.days %>"),
+  beforeShowDay: function(date){
+    var day = date.getDay();
+    return [(day !== 0), ''];
+  }
+});

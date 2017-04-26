@@ -1,0 +1,63 @@
+<div class="desktopLeft home">
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+  <h1>
+    Let the <b>Mango Mania</b> begin...
+    <span class="sub">Organically Ripened Alphonso Mangoes</span>
+  </h1>
+</div>
+<div class="desktopRight">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/home?city_id=<%= params[:city_id]%>" class="back"></a>
+        <div class="title">Add Complaint</div>
+      </div>
+      <div class="btn-group pull-right navBtn">
+        <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <ul class="dropdown-menu">
+          <li><a href="/complaint?city_id=<%= params[:city_id]%>">Add a Complaint</a></li>
+          <!--<li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/contact">Contact Us</a></li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container complaintWrap">
+    <div class="row">
+      <div class="col-xs-12">
+
+        <%= form_for @complaint, url: url_for(controller: 'home', action: 'register_complaint'), method: :post, html: { class: 'complain' } do |f| %>
+          <%= f.hidden_field :city_id, value: params[:city_id] %>
+          <% if @complaint.errors.any? %>
+             <div class="alert alert-danger" role="alert">
+              <% @complaint.errors.messages.each do |key,value| %>
+                <%= value.join(" ") %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class='form-group'>
+              <%= f.text_field :txt_id, class: 'form-control', placeholder: 'Order ID', data: { validation: 'required', validation_error_msg: 'Please enter Order ID' } %>
+              <label for="complaint_txt_id">Order ID</label>
+              <%= error_span(@complaint[:txt_id]) %>
+          </div>
+
+          <div class='form-group'>
+              <%= f.text_area :text, disabled: !f.object.new_record?, cols: 46 , rows: 5, class: 'form-control', placeholder: 'Description', data: { validation: 'required', validation_error_msg: 'Please enter Description' } %>
+              <label for="complaint_text">Description</label>
+          </div>
+          <div class="callUs deliveryMsg">
+            For any queries, call us on <a href="tel:+91 88799 89099">+91 88799 89099</a>
+          </div>
+          <div class="btnWrap">
+            <button type="submit" class="btn btn-block btn-default buyNow active" id='order_button'>
+              Submit
+            </button>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

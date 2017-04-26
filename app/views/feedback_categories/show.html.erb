@@ -1,0 +1,27 @@
+<%- model_class = FeedbackCategory -%>
+<div class='page-header'>
+  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class='dl-horizontal'>
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @feedback_category.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @feedback_category.description.html_safe %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_active) %>:</strong></dt>
+  <dd><%= @feedback_category.is_active %></dd>
+</dl>
+
+<%= link_to t('.back', default: t('helpers.links.back')),
+              :back, class: 'btn btn-default'  %>
+<%= link_to t('.edit', default: t('helpers.links.edit')),
+              edit_feedback_category_path(@feedback_category), class: 'btn btn-default' %>
+<%= link_to t('.destroy', default: t('helpers.links.destroy')),
+              feedback_category_path(@feedback_category),
+              method: 'delete',
+              data: {
+                confirm: t('.confirm',
+                           default: t('helpers.links.confirm',
+                                      default: 'Are you sure?'))
+              },
+              class: 'btn btn-danger' %>

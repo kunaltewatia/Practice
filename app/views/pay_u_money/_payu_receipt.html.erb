@@ -1,0 +1,76 @@
+<div class="desktopLeft" style='background: url("<%= @order.product.side_url %>")'>
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+</div>
+<div class="desktopRight">
+  <div class="orangeBg">
+    <a href="/home?city_id=<%= params[:city_id]%>" class="confirmClose"></a>
+    <div class="confirmWrap">
+      <div class="confirmHeading">
+        <% unless params[:id] %>
+          <strong>Thank You</strong>, Your order has been placed <br>
+        <% end %>
+        <span>Order ID - <%= @order.txt_id %></span>
+      </div>
+      <div class="rectangle reviewWrap">
+        <div class="container reviewWrap">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="rHeading">Delivery Address</div>
+              <div class="rInfo"><%= @order.user_name %></div>
+              <div class="rInfo"><%= @order.address %></div>
+              <div class="rInfo"><%= @order.mobile_number %></div>
+              <div class="hr"></div>
+              <div class="summary">
+                <div class="rHeading">Order summary</div>
+                <div class="rSmallHeading"></div>
+                <div class="rInfo"><%= @order.product_name %><span>
+                  Rs <%= @order.plan_price %> / <%= @order.plan_unit %></span>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading">Quantity</div>
+                    <div class="rInfo"><%= @order.unit %></div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading">Sub Total</div>
+                    <div class="rInfo">Rs. <%= @order.plan_price.to_i * @order.unit.to_i %>/-</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading">Discount</div>
+                    <div class="rInfo">Rs. <%= @order.discount %>/-</div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading"> <%= @order.response.blank? ? 'Amount to be paid' : 'Amount Paid' %></div>
+                    <div class="rInfo">Rs. <%= @order.price %>/-</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading">Transaction Date</div>
+                    <div class="rInfo"><%= @order.created_at.strftime("%d %b %Y") %></div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading">Delivery Date</div>
+                    <div class="rInfo"><%= @order.delivery_date.strftime("%d %b %Y") %></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="rSmallHeading">Payment Type</div>
+                    <div class="rInfo"><%= @order.payment_str %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rBottom"></div>
+      <div class="dWrap">
+        <%= link_to "Download Receipt", export_path(:pdf) + "?id=" + @order.txt_id, class: 'download' %>
+      </div>
+    </div>
+  </div>
+</div>

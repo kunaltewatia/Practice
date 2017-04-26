@@ -1,0 +1,11 @@
+I"¿(function() {
+  $(document).ready(function() {
+    $("#myModal").modal('show');
+    return $('#myModal').modal({
+      backdrop: 'static',
+      keyboard: false
+    });
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,20 @@
+<%= form_tag customers_path, remote: true, html: { class: 'form-inline customer' }, method: 'get' do %>
+  <div class = 'row'>
+    <div class = 'col-sm-1'>
+      <label class = 'control-label' >Name/Contact</label>
+    </div>
+    <div class = 'col-sm-2'>
+      <%= text_field_tag 'name', params[:name], class: 'form-control',
+         placeholder: 'Firstname OR Lastname' %>
+    </div>
+    <div class = 'col-sm-2'>
+      <%= text_field_tag 'contact', params[:contact], { class: 'form-control col-sm-2', placeholder: 'Contact' } %>
+    </div>
+    <div class = 'col-sm-2'>
+      <%= submit_tag 'Search', name: nil, class: 'pull-right btn btn-primary' %>
+    </div>
+    <div class = 'col-sm-2'>
+      <button class='btn search-reset btn-default'>Reset</button>
+    </div>
+  </div>
+<% end %>

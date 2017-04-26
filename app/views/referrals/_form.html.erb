@@ -1,0 +1,43 @@
+<%= form_for @referral, html: { class: 'form-horizontal referral' } do |f| %>
+   <% if @referral.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@referral.errors.count, 'error') %> prohibited this Referral from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @referral.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <% if f.object.new_record? %>
+    <input id="referrer" type="text" placeholder="Customer name" name="referrer" class="form-control">
+  <% else %>
+    <input type="text" placeholder="Customer name" name="referrer" class="form-control disabled" value="<%= f.object.mobile_user.full_name + " (" + f.object.mobile_user.mobile_number + ')' unless f.object.new_record? %>", readonly="readonly">
+  <% end %>
+  <%= f.hidden_field :mobile_user_id %>
+
+  <div class='control-group'>
+    <%= f.label :contact, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :contact, class: 'form-control' %>
+    </div>
+    <%= error_span(@referral[:contact]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_converted, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_converted, class: 'form-control' %>
+    </div>
+    <%= error_span(@referral[:contact]) %>
+  </div></br>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            referrals_path, class: 'btn btn-default' %>
+<% end %>

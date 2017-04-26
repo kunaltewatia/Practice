@@ -1,0 +1,18 @@
+<%- model_class = Society -%>
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%=t '.title',
+         default: [:'helpers.titles.new', 'New %{model}'],
+         model: model_class.model_name.human.titleize %>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <%= render partial: 'form' %>
+      </div>
+      <!-- Button trigger modal -->
+      <%= render 'modal_dialog' %>
+    </div>
+  </div>
+</div>

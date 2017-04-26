@@ -1,0 +1,58 @@
+<div class="desktopLeft" style='background: url("<%= @order.product.side_url %>")'>
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+</div>
+<div class="desktopRight">
+  <div class="orangeBg">
+    <div class="confirmWrap">
+      <div class="confirmHeading">
+        <table style="border: 1px solid black;">
+          <tr>
+            <td style="border: 1px solid black;">Order ID</td>
+            <td style="border: 1px solid black;"><%= @order.txt_id %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">User Name</td>
+            <td style="border: 1px solid black;"><%= @order.user_name %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Delivery Address</td>
+            <td style="border: 1px solid black;"><%= @order.address %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Mobile Number</td>
+            <td style="border: 1px solid black;"><%= @order.mobile_number %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Order summary </td>
+            <td style="border: 1px solid black;"><%= @order.product_name %> Rs <%= @order.plan_price %> / <%= @order.plan_unit %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Quantity</td>
+            <td style="border: 1px solid black;"><%= @order.unit %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Sub Total</td>
+            <td style="border: 1px solid black;">Rs. <%= @order.plan_price.to_i * @order.unit.to_i %>/-</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Discount</td>
+            <td style="border: 1px solid black;">Rs. <%= @order.discount %>/-</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Amount Paid</td>
+            <td style="border: 1px solid black;">Rs. <%= @order.price %>/-</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Payment Date</td>
+            <td style="border: 1px solid black;"><%= @order.created_at.strftime("%d %b %Y") %></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">Payment Method</td>
+            <td style="border: 1px solid black;">Online Payment</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

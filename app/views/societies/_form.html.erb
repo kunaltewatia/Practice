@@ -1,0 +1,61 @@
+<%= nested_form_for @society, html: { class: 'form-horizontal society' } do |f| %>
+
+  <% if @society.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@society.errors.count, 'error') %>
+          prohibited this society from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @society.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group row'>
+    <%= label_tag 'city_id', nil, class: 'col-md-12'%>
+      <div class='controls col-md-8'>
+       <%= select_tag 'society[city_id]', options_for_select([ [@city.name, @city.id] ]), options = { class: 'form-control', disabled: true} %>
+      </div>
+  </div>
+
+  <div id='area_list'>
+    <%= render 'area_field' %>
+  </div>
+  <div id='locality_list'>
+    <%= render 'locality_field' %>
+  </div>
+
+  <div class='control-group row'>
+    <%= f.label :name, class: 'col-md-12' %>
+    <div class='controls col-md-8'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@society[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div>
+    <%= error_span(@society[:is_active]) %>
+  </div>
+
+  <%= f.fields_for :wings do |wing_fields| %>
+    <%= render 'wing_form', f: wing_fields %>
+  <% end %>
+  <%= f.link_to_add "Add new wing", :wings, class: 'btn btn-primary' %>
+
+  <%= f.submit nil, class: 'btn btn-primary', id: "society_submit"%>
+  <%= link_to t('.cancel',
+                default: t('helpers.links.cancel')),
+                societies_path,
+                class: 'btn btn-default' %>
+<% end %>

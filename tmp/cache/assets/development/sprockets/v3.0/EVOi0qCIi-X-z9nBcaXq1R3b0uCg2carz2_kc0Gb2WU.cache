@@ -1,0 +1,17 @@
+I"G(function() {
+  $(document).ready(function() {
+    $(document).on("change", "#city_id", function(e) {
+      return $("#homeLink").attr("href", "/home?city_id=" + e.target.value);
+    });
+    $('.content').show();
+    $('.accord3 li a.active').next('.content').hide();
+    return $('.accord3 li a').click(function() {
+      $(this).toggleCLass('active');
+      $(this).next('.content').stop().slideToggle();
+      $(this).parents('li').siblings().find('a').removeClass('active');
+      return $(this).parents('li').siblings().find('.content').slideUp();
+    });
+  });
+
+}).call(this);
+:ET

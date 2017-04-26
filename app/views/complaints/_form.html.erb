@@ -1,0 +1,111 @@
+<%= form_for @complaint, html: { class: 'form-horizontal complain' } do |f| %>
+
+    <% if @complaint.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@complaint.errors.count, 'error') %>
+          prohibited this complain from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @complaint.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <% #if f.object.new_record? %>
+    <!-- <input id="autocomplete" type="text" placeholder="Customer name" name="search" class="form-control"> -->
+  <% #else %>
+   <!--  <input type="text" placeholder="Customer name" name="search" class="form-control disabled" value="<%#= f.object.mobile_user.full_name + " (" + f.object.mobile_user.mobile_number + ')' unless f.object.new_record? %>", readonly="readonly"> -->
+  <% #end %>
+  <%#= f.hidden_field :mobile_user_id %>
+
+  <div class='control-group'>
+    <label class= 'control-label'>Complaint Category</label>
+    <div class='controls'>
+      <%= f.select :complaint_category_id, options_from_collection_for_select(
+          @categories, 'id', 'name', @complaint.complaint_category_id),
+          { prompt: 'Select Category' }, {class: 'form-control', disabled: !f.object.new_record? } %>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <label class= 'control-label'>Order</label>
+    <div class='controls'>
+      <%= f.select :order_id, options_from_collection_for_select(
+          @orders, 'id', 'user_name', @complaint.order_id),
+          { prompt: 'Select Order' }, {class: 'form-control', disabled: !f.object.new_record? } %>
+    </div>
+  </div>
+<!--
+  <div class='control-group'>
+    <%#= f.label :date, class: 'control-label' %>
+    <div class='controls'>
+      <%#= f.text_field :date, disabled: !f.object.new_record?, class: 'form-control date-field' %>
+    </div>
+  </div> -->
+
+<!--   <div class='control-group'>
+    <%#= f.label :fruit_name, class: 'control-label' %>
+    <div class='controls'>
+      <%#= f.text_field :fruit_name, disabled: !f.object.new_record?, class: 'form-control' %>
+    </div>
+  </div> -->
+
+  <% unless f.object.new_record? %>
+    <div class='control-group'>
+      <div class='controls'>
+        <%= image_tag(f.object.image_url(:thumb)) %>
+      </div>
+    </div>
+  <% end %>
+<!--
+  <div class='control-group'>
+    <%#= f.label :image, class: 'control-label' %>
+    <div class='controls'>
+      <%#= f.file_field :image, disabled: !f.object.new_record?, class: 'form-control' %>
+    </div>
+  </div> -->
+
+  <div class='control-group'>
+    <%= f.label :text, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_area :text, disabled: !f.object.new_record?, cols: 46 , rows: 5 %>
+    </div>
+  </div>
+
+  <!-- <div class='control-group'>
+    <%#= f.label 'Add Extra Fruit', class: 'control-label' %>
+    <div class='controls'>
+      <%#= f.check_box :is_extra_fruit, class: 'form-control', disabled: (@complaint.is_extra_fruit )  %>
+    </div>
+    <%#= error_span(@complaint[:is_extra_fruit]) %>
+  </div> -->
+
+  <div class='control-group' >
+    <%= f.label :admin_comment, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_area :admin_comment, cols: 46, rows: 5 %>
+    </div>
+    <%= error_span(@complaint[:admin_comment]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_resolved, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_resolved, class: 'form-control', disabled: @complaint.is_resolved %>
+    </div>
+    <%= error_span(@complaint[:is_resolved]) %>
+  </div>
+  <br/>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            complaints_path, class: 'btn btn-default' %>
+
+<% end %>

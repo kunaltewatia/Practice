@@ -1,0 +1,54 @@
+<%= form_for @wing, html: { class: 'form-horizontal wing' } do |f| %>
+
+  <% if @wing.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@wing.errors.count, 'error') %>
+          prohibited this wing from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @wing.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class='control-group'>
+    <%= f.label :society_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :society_id,
+                   options_from_collection_for_select(@societies, 'id', 'name',
+                                                      @wing.society_id),
+                   { prompt: 'Select Society' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@wing[:society_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@wing[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div>
+    <%= error_span(@wing[:is_active]) %>
+  </div><br/>
+
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel',
+                default: t('helpers.links.cancel')),
+                wings_path,
+                class: 'btn btn-default' %>
+
+<% end %>

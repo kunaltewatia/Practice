@@ -1,0 +1,9 @@
+I"ª(function() {
+  $(document).ready(function() {
+    return $(document).on("change", "#city_id", function(e) {});
+  });
+
+  $.cookie('city_id', 'homeLink');
+
+}).call(this);
+:ET

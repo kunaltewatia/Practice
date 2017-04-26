@@ -1,0 +1,13 @@
+<div class="container col-md-12">
+  <div class="col-md-8" id="pauseCalender"></div>
+  <div class="col-md-4">
+    <%= form_for :pause_subscription, url: customer_subscription_pauses_path(customer_id: params[:customer_id]), remote: true, method: :post do |f| %>
+      <%= f.hidden_field 'date' %>
+      <%= f.hidden_field 'subscription_id', value: params[:subscription_id] %>
+      <%= f.hidden_field 'mobile_user_id', value: params[:customer_id] %>
+      <br/><br/>
+
+      <%= f.submit 'Pause', class: 'btn btn-primary' %></br>
+    <% end %>
+  </div>
+</div>

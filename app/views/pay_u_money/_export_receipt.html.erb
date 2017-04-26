@@ -1,0 +1,65 @@
+<div class="container pdf">
+  <div class="row">
+    <div class="col-xs-6">
+      <%= wicked_pdf_image_tag 'bigLogo.png', height:"120", width:"120" %>
+    </div>
+    <div class="col-xs-6 tp">
+      <div class="pHeading">Buyer Details</div>
+      <div class="name"><%= @order.user_name %></div>
+      <p><%= @order.address %></p>
+      <p><%= @order.mobile_number %></p>
+    </div>
+  </div>
+  <div class="border"></div>
+  <div class="row tp25">
+    <div class="col-xs-6">
+      <div class="pHeading">order id</div>
+      <p><%= @order.txt_id %></p>
+      <div class="pHeading">Transaction Date</div>
+      <p> <%= @order.created_at.strftime("%d %b %Y") %></p>
+    </div>
+    <div class="col-xs-6">
+      <div class="pHeading">Delivery Date </div>
+      <p><%= @order.delivery_date.strftime("%d %b %Y") %>, 5-9 PM </p>
+    </div>
+    <div class="col-xs-6">
+      <div class="pHeading">Payment Type </div>
+      <p><%= @order.payment_str %></p>
+    </div>
+  </div>
+  <div class="border"></div>
+  <div class="row tp15">
+    <div class="col-xs-6">
+      <div class="pHeading">Item</div>
+    </div>
+    <div class="col-xs-3">
+      <div class="pHeading">Qty</div>
+    </div>
+    <div class="col-xs-3">
+      <div class="pHeading tr">Sub Total</div>
+    </div>
+  </div>
+  <div class="border mt15"></div>
+  <div class="row tp15">
+    <div class="col-xs-6">
+      <p> <%= @order.product_name %> <span>Rs. <%= @order.plan_price %>/ <%= @order.plan_unit %></span></p>
+    </div>
+    <div class="col-xs-3">
+      <p><%= @order.unit %></p>
+    </div>
+    <div class="col-xs-3">
+      <p class=" tr">Rs. <%= @order.plan_price.to_i * @order.unit.to_i %>/-</p>
+    </div>
+  </div>
+  <div class="border"></div>
+  <div class="row tp15">
+    <div class="col-xs-9">
+      <div class="discount tr">Discount</div>
+      <div class="amount tr"> <%= @order.is_paid ? 'Amount paid' : 'Amount to be paid' %></div>
+    </div>
+    <div class="col-xs-3">
+      <div class="dm tr">Rs. <%= @order.discount %>/-</div>
+      <div class="amount tr">Rs. <%= @order.price %>/-</div>
+    </div>
+  </div>
+</div>

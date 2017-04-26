@@ -1,0 +1,48 @@
+<%- model_class = Complaint -%>
+<div class='page-header'>
+  <h1>
+    <%=t '.title', default: model_class.model_name.human.pluralize.titleize %>
+  </h1>
+</div>
+<div>
+  <%= link_to 'Add New Complaint', new_complaint_path, class: 'btn btn-primary' %>
+  <br/><br/>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#tabs-1" aria-controls="received" role="tab" data-toggle="tab">Received<span class="badge"><%=@opened.count%></span></a>
+    </li>
+   <!--  <li role="presentation">
+      <a href="#tabs-2" aria-controls="accepted" role="tab" data-toggle="tab">Accepted<span class="badge"><%#=@accepted.count%></span></a>
+    </li> -->
+    <li role="presentation">
+      <a href="#tabs-3" aria-controls="resolved" role="tab" data-toggle="tab">Resolved<span class="badge"><%=@resolved.count%></span></a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tabs-1">
+      <table class='table table-striped table-hover'>
+        <%= render 'table_header' %>
+        <tbody>
+          <% @opened.each_with_index do |complaint, index| %>
+           <%= render partial: 'table_body', locals: { complaint: complaint,
+                                                       index: index } %>
+          <% end %>
+        </tbody>
+      </table>
+      <%#= will_paginate @opened %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tabs-3">
+      <table class='table table-striped table-hover'>
+        <%= render 'table_header' %>
+        <tbody>
+          <% @resolved.each_with_index do |complaint, index| %>
+           <%= render partial: 'table_body', locals: { complaint: complaint,
+                                                       index: index } %>
+          <% end %>
+        </tbody>
+      </table>
+      <%#= will_paginate @resolved %>
+    </div>
+  </div>
+</div>
+

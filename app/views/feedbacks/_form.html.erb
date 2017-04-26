@@ -1,0 +1,56 @@
+<%= form_for @feedback, html: { class: 'form-horizontal feedback' } do |f| %>
+  <% if @feedback.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@feedback.errors.count, "error") %>
+          prohibited this feedback_category from being saved:
+        </h3>
+      </div>
+        <ul>
+        <% @feedback.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :mobile_user, class: 'control-label' %>
+    <div  class='controls' >
+      <%= @feedback.mobile_user.full_name if @feedback.mobile_user.present? %>
+    </div>
+  </div>
+
+   <div class='control-group'>
+    <%= f.label :feedback_category, class: 'control-label' %>
+    <div  class='controls' >
+      <%= @feedback.feedback_category.name if @feedback.feedback_category.present? %>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :text, class: 'control-label' %>
+    <div  class='controls' >
+      <%= @feedback.text %>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :admin_comment, class: 'control-label' %>
+    <div  class='controls' >
+      <%=f.text_area :admin_comment, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_resolved, class: 'control-label'  %>
+    <div  class='controls' >
+      <%= f.check_box :is_resolved, class: 'form-control' %>
+    </div>
+  </div>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            feedbacks_path, class: 'btn btn-default' %>
+<% end %>

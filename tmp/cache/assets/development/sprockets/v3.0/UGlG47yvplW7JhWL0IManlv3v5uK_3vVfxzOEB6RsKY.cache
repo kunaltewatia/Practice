@@ -1,0 +1,11 @@
+I"(function() {
+  $(document).ready(function() {
+    $(document).on("change", "#city_id", function(e) {
+      $("#homeLink").attr("href", "/home?city_id=" + e.target.value);
+      return e.keyCode === 9;
+    });
+    return e.preventDefault();
+  });
+
+}).call(this);
+:ET

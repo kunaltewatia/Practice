@@ -1,0 +1,42 @@
+<%- model_class = FaqQuestion -%>
+<div class='page-header'>
+  <h1><%=t '.title', default: 'faq_question'.pluralize.titleize %></h1>
+</div>
+
+<%= link_to t('.new', default: t('helpers.links.new')),
+            new_faq_path,
+            class: 'btn btn-primary' %>
+
+<table class='table table-striped table-hover'>
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:faq_category_id) %></th>
+      <th><%= model_class.human_attribute_name(:is_active) %></th>
+      <th><%=t '.actions', default: t('helpers.actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @faq_questions.each_with_index do |faq_question, index| %>
+      <tr>
+        <td><%= model_index(index) %></td>
+        <td><%= faq_question.title %></td>
+        <td><%= faq_question.description.html_safe %></td>
+        <td><%= faq_question.faq_category.name unless faq_question.faq_category.nil? %></td>
+        <td><%= faq_question.is_active %></td>
+        <td>
+          <%= link_to t('.edit', default: t('helpers.links.edit')),
+                      edit_faq_path(faq_question), class: 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', default: t('helpers.links.destroy')),
+                      delete_faq_path(faq_question),
+                      method: :delete,
+                      data: { confirm: t('.confirm', default: t('helpers.links.confirm', default: 'Are you sure?')) },
+                      class: 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @faq_questions, renderer: BootstrapPagination::Rails %>

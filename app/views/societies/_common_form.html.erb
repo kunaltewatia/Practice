@@ -1,0 +1,40 @@
+<%= form_for(@target, url: (params[:target] || target), remote: true,
+                      html: { class: 'form-horizontal' }) do |fields| %>
+  <% if @target.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@target.errors.count, 'error') %>
+          prohibited from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @target.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= fields.hidden_field @target.attribute_names.collect{ |a| a if a.include?('_id')}
+      .compact.first.to_sym, class: 'form-control' %>
+  </div>
+
+  <div class='control-group'>
+    <%= fields.label :name,  class: 'control-label' %></br>
+    <div class='controls'>
+     <%= fields.text_field :name, class: 'form-control' %></br>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <%= fields.label :is_active,  class: 'control-label'%>
+    <div class='controls'>
+      <%= fields.check_box :is_active, class: 'form-control' %></br>
+    </div>
+  </div>
+  <%= fields.submit nil, class: 'btn btn-primary ' %>
+<% end %>

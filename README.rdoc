@@ -1,0 +1,55 @@
+# frools-backend
+Frools Repo
+
+=== Prerequisites for application
+
+* Ruby (2.2.1)
+* Rails (4.2.1)
+* mysql2 (0.3.20)
+* pre-commit
+----
+
+=== Getting Started
+
+* Install mysql kindly refer [this](https://help.ubuntu.com/12.04/serverguide/mysql.html) link
+
+=== Setup
+
+1) Get the latest code from *develop* branch of the repository.
+  https://github.com/HartleyLab/frools-backend.git
+
+2) Add the database.yml in *config/* directory. For sample database.yml
+   kindly refer database.yml.default in /config/database.yml.default
+
+3) Add the secrets.yml file in config/ for that refere
+   config/secrets.yml.default
+
+5) Install pre-commit
+
+  The pre-commit gem prevents you from committing some forms of bad code:
+
+  gem install pre-commit
+  bundle exec pre-commit install
+
+  Check out the [documentation](https://github.com/jish/pre-commit) for available checks.
+
+
+6) Run the following commands:-
+
+    cd <application_dir>
+
+    bundle install  # Install the necessary gems
+
+    rake db:setup # Create the db, create the schema and load seed data.
+
+    rails s  # Start the server
+
+7) To access admin panel following link
+
+    http://localhost:3000
+
+8) Login by:
+   username: admin@frools.com
+   password: frools@2015
+
+----

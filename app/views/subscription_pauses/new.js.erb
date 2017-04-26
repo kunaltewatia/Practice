@@ -1,0 +1,21 @@
+$('.subscription-body').html("<%= j render(partial: 'pause_calendar') %>")
+
+$.ajax({
+  url: "/customers/<%= j params[:customer_id]  %>/subscription_pauses",
+  type: 'get',
+  data: { subscription_id: <%= params[:subscription_id] %> },
+  success: function(result){
+    $('#pauseCalender').multiDatesPicker({
+      minDate: new Date("<%= @subscription.start_at %>"),
+      maxDate: new Date("<%= @subscription.ends_at %>"),
+      dateFormat: "yy-m-d",
+      altField: '#pause_subscription_date',
+      addDates: result['customer_pauses'].length ? result['customer_pauses']: '',
+      addDisabledDates: result['system_pauses'].length ? result['system_pauses'] : '',
+      beforeShowDay: function(date){
+        var day = date.getDay();
+        return [(day !== 0), ''];
+      }
+    });
+  }
+});

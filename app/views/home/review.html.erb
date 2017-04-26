@@ -1,0 +1,79 @@
+<div class="desktopLeft" style='background: url("<%= @order.product.side_url %>"); background-size: cover;'>
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+</div>
+<div class="desktopRight">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/cart?id=<%= @order.id %>&city_id=<%= params[:city_id]%>" class="back"></a>
+        <div class="title">Review Your Order</div>
+      </div>
+      <div class="btn-group pull-right navBtn">
+        <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <ul class="dropdown-menu">
+          <li><a href="/complaint?city_id=<%= params[:city_id]%>">Add a Complaint</a></li>
+          <!--<li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/contact">Contact Us</a></li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container reviewWrap">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="rHeading">Delivery Address</div>
+        <div class="rInfo"><%= @order.user_name %></div>
+        <div class="rInfo"><%= @order.address %></div>
+        <div class="rInfo"><%= @order.mobile_number %></div>
+        <div class="hr"></div>
+        <div class="summary">
+          <div class="rHeading">Order summary</div>
+          <div class="rInfo rbm">
+            <%= @order.product_name %>
+          </div>
+          <div class="rSmallHeading mb18">
+            Rs <%= @order.plan_price %> / <%= @order.plan_unit %>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="rSmallHeading">Qty.</div>
+              <div class="rInfo"><%= @order.unit %></div>
+            </div>
+            <div class="col-xs-6">
+              <div class="rSmallHeading">Sub Total</div>
+              <div class="rInfo">Rs. <%= @order.plan_price.to_i * @order.unit.to_i %>/-</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="rSmallHeading">Discount</div>
+              <div class="rInfo">Rs. <%= @order.discount %>/-</div>
+            </div>
+            <div class="col-xs-6">
+              <div class="rSmallHeading">Amount to be paid</div>
+              <div class="rInfo bold">Rs. <%= @order.price  %>/-</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="rSmallHeading">Delivery Date</div>
+              <div class="rInfo"><%= @order.delivery_date.strftime("%d %b %Y") %></div>
+            </div>
+            <div class="col-xs-6">
+              <div class="rSmallHeading">Payment Type</div>
+              <div class="rInfo"><%= @order.payment_str %></div>
+            </div>
+          </div>
+        </div>
+        <div class="btnWrap">
+          <a type="submit" class="btn btn-block btn-default buyNow pay active" href="<%= payment_url + "?id=#{@order.id}" %>">
+            Total <br><span>Rs. <%= @order.price %>/-</span>
+            <span class="btnText">Proceed to Pay</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

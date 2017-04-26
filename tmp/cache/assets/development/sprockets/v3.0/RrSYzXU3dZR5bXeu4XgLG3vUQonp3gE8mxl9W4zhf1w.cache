@@ -1,0 +1,13 @@
+I"È(function() {
+  var city_id;
+
+  $(document).ready(function() {
+    return $(document).on("change", "#city_id", function(e) {});
+  });
+
+  $.cookie("city_id", city_id = {
+    e: e
+  });
+
+}).call(this);
+:ET

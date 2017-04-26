@@ -1,0 +1,72 @@
+<%= form_for @order, html: { class: 'form-horizontal product' } do |f| %>
+
+  <% if @order.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@order.errors.count, 'error') %> prohibited this product from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :product_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :product_id, options_from_collection_for_select(@products, 'id', 'name', @order.product_id), { prompt: 'Select Service' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@order[:product_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :plan_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :plan_id, options_from_collection_for_select(@plans, 'id', 'name', @order.plan_id), { prompt: 'Select Service' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@order[:plan_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :area_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :area_id, options_from_collection_for_select(@areas, 'id', 'name', @order.area_id), { prompt: 'Select Service' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@order[:area_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :user_name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :user_name, class: 'form-control' %>
+    </div>
+    <%= error_span(@order[:user_name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :mobile_number, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :mobile_number, class: 'form-control' %>
+    </div>
+    <%= error_span(@order[:mobile_number]) %>
+  </div>
+
+
+  <div class='control-group'>
+    <%= f.label :address, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_area :address, class: 'form-control' %>
+    </div>
+    <%= error_span(@order[:address]) %>
+  </div>
+
+  <br/>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            products_path, class: 'btn btn-default' %>
+<% end %>

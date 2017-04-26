@@ -1,0 +1,3 @@
+# LeadsHelper
+module LeadsHelper
+end

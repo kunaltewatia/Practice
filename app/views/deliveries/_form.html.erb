@@ -1,0 +1,166 @@
+<%= form_for @delivery, html: { class: 'form-horizontal delivery' } do |f| %>
+
+    <% if @delivery.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@delivery.errors.count, 'error') %>
+          prohibited this delivery from being saved:
+        </h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @delivery.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :mobile_user_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :mobile_user_id,
+                   options_from_collection_for_select(@mobile_users, 'id', 'first_name',
+                  @delivery.mobile_user_id),
+                  { prompt: 'Select Mobile User' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:mobile_user_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :pack_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :pack_id,
+                   options_from_collection_for_select(@packs, 'id', 'name',
+                  @delivery.pack_id),
+                  { prompt: 'Select Pack' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:pack_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :plan_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :plan_id,
+                   options_from_collection_for_select(@plans, 'id', 'name',
+                  @delivery.plan_id),
+                  { prompt: 'Select Plan' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:plan_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :country_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :country_id,
+                   options_from_collection_for_select(@countries, 'id', 'name',
+                  @delivery.country_id),
+                  { prompt: 'Select Country' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:country_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :state_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :state_id,
+                   options_from_collection_for_select(@states, 'id', 'name',
+                  @delivery.state_id),
+                  { prompt: 'Select State' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:state_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :city_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :city_id,
+                   options_from_collection_for_select(@cities, 'id', 'name',
+                  @delivery.city_id),
+                  { prompt: 'Select City' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:city_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :area_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :area_id,
+                   options_from_collection_for_select(@areas, 'id', 'name',
+                  @delivery.area_id),
+                  { prompt: 'Select Area' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:area_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :locality_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :locality_id,
+                   options_from_collection_for_select(@localities, 'id', 'name',
+                  @delivery.locality_id),
+                  { prompt: 'Select Locality' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:locality_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :society_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :society_id,
+                   options_from_collection_for_select(@societies, 'id', 'name',
+                  @delivery.society_id),
+                  { prompt: 'Select Society' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:society_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :wing_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :wing_id,
+                   options_from_collection_for_select(@wings, 'id', 'name',
+                  @delivery.wing_id),
+                  { prompt: 'Select Wing' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:wing_id]) %>
+  </div>
+
+
+  <div class='control-group'>
+    <%= f.label :complaint_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :complaint_id,
+                   options_from_collection_for_select(@complaints, 'id', 'text',
+                  @delivery.complaint_id),
+                  { prompt: 'Select Complaint' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@delivery[:complaint_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :flat_no, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :flat_no, class: 'form-control' %>
+    </div>
+    <%= error_span(@delivery[:flat_no]) %>
+  </div>
+
+   <div class='control-group'>
+    <%= f.label :date, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.object.date %>
+    </div>
+  </div>
+  <br/>
+
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel',
+                default: t('helpers.links.cancel')),
+                deliveries_path,
+                class: 'btn btn-default' %>
+
+<% end %>

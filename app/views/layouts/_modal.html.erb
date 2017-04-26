@@ -1,0 +1,37 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    // $("#myModal").modal('show');
+    $('#citySelection').modal({
+      backdrop: 'static',
+      keyboard: true
+    });
+    $('.list').click(function(e) {
+      $( this ).slideUp();
+      var cityId = $( this ).attr('city');
+      sessionStorage.setItem("city_id", cityId);
+    });   
+  });
+  $(document).keydown(function(e) {
+    if (e.keyCode == 9) {
+        e.preventDefault();
+    }
+  });
+</script>
+
+<div id="citySelection" class="modal fade citySelectionPopup">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">SELECT CITY</h4>
+      </div>
+      <div class="form-group">
+        <%#= collection_select(:city, :id, City.all, :id, :name, include_blank: 'Select Your City')%>
+        <ul>
+          <% City.all.each do |city| %>
+            <li><%= link_to city.name, home_index_path(city_id: city.id), class:'list', city: city.id%></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

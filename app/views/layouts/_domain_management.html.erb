@@ -1,0 +1,8 @@
+<li class="dropdown <% if ['seasonal_domains'].include?(controller.controller_name) %> active <%end%>">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-frown-o fa-fw"></i>Domains <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="<%= active?('domains') %>"><%= link_to 'Domains', seasonal_domains_path %></li>
+    </ul>
+</li>

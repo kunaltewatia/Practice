@@ -1,0 +1,17 @@
+require 'rails_helper'
+
+RSpec.describe 'packages/edit', type: :view do
+  before(:each) do
+    @package = assign(:package, Package.create!(name: 'MyString', plan: nil))
+  end
+
+  it 'renders the edit package form' do
+    render
+
+    assert_select 'form[action=?][method=?]', package_path(@package), 'post' do
+      assert_select 'input#package_name[name=?]', 'package[name]'
+
+      assert_select 'input#package_plan_id[name=?]', 'package[plan_id]'
+    end
+  end
+end

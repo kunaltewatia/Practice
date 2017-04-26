@@ -1,0 +1,14 @@
+<%= form_for :renew, url: customer_subscription_create_renew_path(
+  customer_id: params[:customer_id], subscription_id: params[:subscription_id]),
+  remote: true, method: :post do |f| %>
+
+  <div class='control-group'>
+    <%= f.label :start_at, class: 'control-label date-field' %>
+    <div class='controls'>
+      <%= f.text_field :start_at,
+                  class: 'form-control', value: show_date(Date.parse(params[:ends_at])) %>
+    </div>
+  </div><br/></br>
+
+  <%= f.submit 'Renew', class: 'btn btn-primary ' %></br>
+<% end %>

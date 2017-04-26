@@ -1,0 +1,57 @@
+<%= form_for @plan, html: { class: 'form-horizontal plan' } do |f| %>
+
+  <% if @plan.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@plan.errors.count, 'error') %> prohibited this plan from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @plan.errors.messages.each do |field, msgs| %>
+          <% attribute = field.to_s.humanize %>
+          <% attribute = 'Unit' if attribute == 'Name'%>
+          <% msgs.each do |msg| %>
+            <li><%= attribute + " " + msg %></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :product_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :product_id, options_from_collection_for_select(@products, 'id', 'name', @plan.product_id), { prompt: 'Select Product' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@plan[:product_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label 'Unit', class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :city_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :city_id, options_from_collection_for_select(@cities, 'id', 'name', @plan.city_id), { prompt: 'Select City' },{class: 'form-control'} %>
+    </div>
+    <%= error_span(@plan[:city_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :price, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :price, class: 'form-control' %>
+    </div>
+    <%= error_span(@plan[:price]) %>
+  </div><br/>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            plans_path, class: 'btn btn-default' %>
+<% end %>

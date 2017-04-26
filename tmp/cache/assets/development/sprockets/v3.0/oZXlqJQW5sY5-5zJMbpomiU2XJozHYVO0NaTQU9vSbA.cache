@@ -1,0 +1,9 @@
+I"ž(function() {
+  $(document).ready(function() {
+    return $(document).on("change", "#city_id", function(e) {});
+  });
+
+  $.cookie("test", 1);
+
+}).call(this);
+:ET

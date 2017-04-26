@@ -1,0 +1,9 @@
+<div class='control-group row'>
+  <%= label_tag 'area_id', nil, class: 'col-md-12'%>
+  <div class='controls col-md-8'>
+    <%= select_tag 'society[area_id]', options_from_collection_for_select(@areas, "id", "name", area_default), options = { class: 'form-control', prompt: 'Select Area'} %>
+  </div>
+  <div class = 'controls col-md-4'>
+    <%= link_to 'Add New Area', new_society_path(target: 'Area'), class: 'addNew',  data: { toggle: "modal", target: '#location_modal' }, remote: true, name: 'areas'%>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<%= form_for @seasonal_domain, html: { class: 'form-horizontal seasonal_domain' } do |f| %>
+
+  <% if @seasonal_domain.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@seasonal_domain.errors.count, 'error') %> prohibited this domain from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @seasonal_domain.errors.messages.each do |field, msgs| %>
+          <% attribute = field.to_s.humanize %>
+          <% attribute = 'Unit' if attribute == 'Name'%>
+          <% msgs.each do |msg| %>
+            <li><%= attribute + " " + msg %></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@seasonal_domain[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :domain, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :subdomain, class: 'form-control' %>
+    </div>
+    <%= error_span(@seasonal_domain[:subdomain]) %>
+  </div>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            seasonal_domains_path, class: 'btn btn-default' %>
+<% end %>

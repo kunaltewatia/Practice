@@ -1,0 +1,18 @@
+<tr>
+  <td><%= complaint.id %></td>
+  <td><%= complaint.order.user_name if complaint.order %></td>
+  <td>
+    <%=  complaint.order.address if complaint.order %>
+  </td>
+  <td><%= complaint.order.status if complaint.order %></td>
+  <td><%= complaint.order.created_at if complaint.order %>
+  <td><%= complaint.complaint_category.name if complaint.complaint_category %></td>
+   <td><%= complaint.order.updated_at if complaint.order %></td>
+
+  <td>
+    <%= link_to t('.view',
+                  default: t('helpers.links.view')),
+                  edit_complaint_path(complaint),
+                  class: 'btn btn-default btn-xs' %>
+  </td>
+</tr>

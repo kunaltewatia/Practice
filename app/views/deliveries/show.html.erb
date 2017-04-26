@@ -1,0 +1,29 @@
+<%- model_class = Delivery -%>
+<div class='page-header'>
+  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class='dl-horizontal'>
+  <dt><strong><%= model_class.human_attribute_name(:id) %>:</strong></dt>
+  <dd><%= @delivery.id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:country_id) %>:</strong></dt>
+  <dd><%= @delivery.country.name %></dd>
+</dl>
+
+<%= link_to t('.back',
+              default: t('helpers.links.back')),
+              :back,
+              class: 'btn btn-default' %>
+<%= link_to t('.edit',
+              default: t('helpers.links.edit')),
+              edit_delivery_path(@delivery),
+              class: 'btn btn-default' %>
+<%= link_to t('.destroy', default: t('helpers.links.destroy')),
+              delivery_path(@delivery),
+              method: 'delete',
+              data: {
+                confirm: t('.confirm',
+                           default: t('helpers.links.confirm',
+                                      default: 'Are you sure?'))
+              },
+              class: 'btn btn-danger' %>

@@ -1,0 +1,18 @@
+---
+:checks_add:
+- :ruby
+- :tabs
+- :debugger
+- :pry
+- :ruby_symbol_hashrockets
+- :migrations
+- :yaml
+- :json
+- :merge_conflict
+- :rails
+- :rubocop
+- :jshint
+- :whitespace
+:checks_remove:
+- :coffeelint
+- :scss_lint

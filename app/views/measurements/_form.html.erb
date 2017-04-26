@@ -1,0 +1,38 @@
+<%= form_for @measurement, html: { class: 'form-horizontal measurement' } do |f| %>
+
+  <% if @measurement.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@measurement.errors.count, 'error') %> prohibited this measurement from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @measurement.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@measurement[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :unit, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :unit, class: 'form-control' %>
+    </div>
+    <%= error_span(@measurement[:unit]) %>
+  </div></br>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            measurements_path, class: 'btn btn-default' %>
+
+<% end %>

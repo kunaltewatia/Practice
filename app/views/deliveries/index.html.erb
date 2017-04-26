@@ -1,0 +1,40 @@
+<%- model_class = Delivery -%>
+<div class='page-header'>
+  <h1>
+    <%=t '.title', default: model_class.model_name.human.pluralize.titleize %>
+  </h1>
+</div>
+<%= render partial: 'search' %>
+<% if @deliveries.count.zero? %>
+  <h4 class="noDelivery"> You don't have any deliveries Today !!</h4>
+<% else %>
+  <table class='table table-striped table-hover'>
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:user) %></th>
+        <th><%= model_class.human_attribute_name(:pack) %></th>
+        <th><%= model_class.human_attribute_name(:plan) %></th>
+        <th><%= model_class.human_attribute_name(:area) %></th>
+        <th><%= model_class.human_attribute_name(:locality) %></th>
+        <th><%= model_class.human_attribute_name(:society) %></th>
+        <th><%= model_class.human_attribute_name(:wing) %></th>
+        <th><%= model_class.human_attribute_name(:Complaint) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @deliveries.each do |delivery| %>
+        <tr>
+          <td><%= delivery.mobile_user.full_name unless delivery.mobile_user.nil? %></td>
+          <td><%= delivery.pack.name unless delivery.pack.nil? %></td>
+          <td><%= delivery.plan.name unless delivery.plan.nil? %></td>
+          <td><%= delivery.area.name unless delivery.area.nil? %></td>
+          <td><%= delivery.locality.name unless delivery.locality.nil? %></td>
+          <td><%= delivery.society.name unless delivery.society.nil? %></td>
+          <td><%= delivery.wing.name unless delivery.wing.nil? %></td>
+          <td><%= delivery.complaint.text unless delivery.complaint.nil? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= will_paginate @deliveries, renderer: BootstrapPagination::Rails %>

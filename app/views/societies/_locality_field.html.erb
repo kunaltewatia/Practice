@@ -1,0 +1,11 @@
+<div class='control-group row'>
+  <%= label_tag :locality_id, nil, { class: 'col-md-12' } %>
+  <div class='controls col-md-8' >
+    <%= select_tag 'society[locality_id]', options_from_collection_for_select(@localities, "id", "name", locality_default), { prompt: 'Select Locality',
+      class: 'form-control' } %>
+  </div>
+  <%= error_span(@society[:locality_id]) if @society %>
+  <div class = 'controls col-md-4'>
+    <%= link_to 'Add New Locality', new_society_path(target: 'Locality'), class: 'addNew', data: { toggle: "modal", target: '#location_modal' }, remote: true, name: 'localities'%>
+  </div>
+</div>

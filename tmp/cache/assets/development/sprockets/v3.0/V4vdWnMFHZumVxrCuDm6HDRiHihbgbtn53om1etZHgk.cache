@@ -1,0 +1,12 @@
+I"(function() {
+  $(document).ready(function() {
+    return $(document).on("change", "#city_id", function(e) {
+      $("#homeLink").attr("href", "/home?city_id=" + e.target.value);
+      return $("#myModal").modal({
+        backdrop: 'static'
+      });
+    });
+  });
+
+}).call(this);
+:ET

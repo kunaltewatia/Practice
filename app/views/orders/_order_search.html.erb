@@ -1,0 +1,18 @@
+<div class="clearfix">
+  <div class="pull-left">
+    <%= search_form_for @search do |f| %>
+      <div class='control-group'>
+        <div class='controls' id='delivery_date'>
+          <%#= f.label :date, class: 'control-label' %>
+          <%= f.text_field :delivery_date_date_equals, class: 'form-control date-field-delivery', placeholder: "Select Date" %>
+        </div>
+        <div class='controls'>
+          <%= f.submit "Get Delivery list", class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="pull-right">
+    <%= link_to "Download Excel", excel_orders_path(params.merge(format: "xls")), class: 'btn btn-primary' if @orders.size > 0 %>
+  </div>
+</div>

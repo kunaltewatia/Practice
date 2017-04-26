@@ -1,0 +1,5 @@
+<% if @subscription.errors.any? %>
+  $('.subscription-body').html("<%= j render(partial: 'edit') %>")
+<% else %>
+  location.reload();
+<% end %>

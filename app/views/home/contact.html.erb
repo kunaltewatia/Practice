@@ -1,0 +1,35 @@
+<div class="desktopLeft">
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+</div>
+<div class="desktopRight">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/home?city_id=<%= params[:city_id]%>" class="back"></a>
+        <div class="title">Contact Us</div>
+      </div>
+      <div class="btn-group pull-right navBtn">
+        <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <ul class="dropdown-menu">
+          <li><a href="/complaint?city_id=<%= params[:city_id]%>">Add a Complaint</a></li>
+          <!--<li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/contact">Contact Us</a></li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container contentWrap">
+    <div class="row">
+      <div class="col-xs-12">
+
+     		<p>Get in touch if you have any queries or if you wish to share your feedback. We would be delighted to hear from you!</p>
+  		<p>Feel free to ping us on <br>
+  		<a href="mailto:buzz@marvelfresh.com">buzz@marvelfresh.com</a></p>
+  		<p>Or call us on <a href="tel:+91 88799 89099">+91 88799 89099</a></p>
+  		<p>We are located at <br>
+  		<span>B/303, Sai Tower, Nr. Old Colony, L.T. Road,
+  		Borivli (West), Mumbai 400091</span></p>
+      </div>
+    </div>
+  </div>
+</div>

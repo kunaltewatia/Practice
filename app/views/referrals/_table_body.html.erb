@@ -1,0 +1,7 @@
+<tr>
+  <td><%= referral.id%></td>
+  <td><%= referral.referrer.full_name  %><br/><%= referral.referrer.mobile_number  %></td>
+  <td><%= referral.contact%></td>
+  <td><%= referral.referent.full_name if referral.referred_id.present?  %>
+  <br/><%= referral.referent.mobile_number if referral.referred_id.present? %></td>
+</tr>

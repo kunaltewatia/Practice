@@ -1,0 +1,17 @@
+I"ë(function() {
+  $(document).ready(function() {
+    return $(document).on("change", "#city_id", function(e) {
+      return $("#homeLink").attr("href", "/home?city_id=" + e.target.value);
+    });
+  });
+
+  Modal.prototype.enforceFocus = function() {
+    $(document).off('focusin.bs.modal').on('focusin.bs.modal', $.proxy((function(e) {
+      if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
+        this.$element.focus();
+      }
+    }), this));
+  };
+
+}).call(this);
+:ET

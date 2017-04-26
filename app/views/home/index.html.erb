@@ -1,0 +1,78 @@
+<div class="desktopLeft home">
+  <a href="/home?city_id=<%= params[:city_id]%>" class="circleLogo"></a>
+  <h2>
+    Let the <b>Mango Mania</b> begin...
+  </h2>
+  <h1>
+    <span class="sub">Order Organically Ripened Alphonso Mangoes for home delivery</span>
+  </h1>
+</div>
+<div class="desktopRight home">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/home?city_id=<%= params[:city_id]%>" class="logo"></a>
+        <div class="title">Frools</div>
+      </div>
+      <div class="btn-group pull-right navBtn">
+        <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <ul class="dropdown-menu">
+          <li><a href="/complaint?city_id=<%= params[:city_id]%>">Add a Complaint</a></li>
+          <!--<li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/contact">Contact Us</a></li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="heading">
+    Currently Serving in <a href="/selected_areas?city_id=<%= params[:city_id]%>" class="popup">Selected Areas</a> of <%= selected_cities(@city) %> <a href="/">(Select City)</a>
+  </div>
+
+  <div class="container">
+    <ul class="row mangoList">
+      <% @plans.each do |plan| %>
+        <li class="col-xs-12 col-sm-12">
+          <a href="/cart?plan_id=<%= plan.id %>&city_id=<%= params[:city_id]%>" class="pack" style='background: url("<%= plan.product.listing_url %>")'>
+            <div class="info">
+              <%= plan.product.name %>
+            </div>
+            <div class="info price">
+              <% if plan.product.is_discounted %>
+                <strike id='info price'>Rs. <%= plan.price %> / <%= plan.name %></strike>
+                <span id='info price'>Rs. <%= discount_price(plan.price) %> / <%= plan.name %></span>
+              <%else%>
+                <span id='info price'>Rs. <%= plan.price %> / <%= plan.name %></span>
+              <% end %>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="footerWrap">
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-4 copy">Copyright &copy; Frools 2017 </div> -->
+        <div class="col-lg-6 col-md-6  col-sm-8 col-sm-offset-0 col-xs-9 copy">
+        Copyright © Frools 2017  &nbsp;&nbsp;<br class="mobile">View Our <a href="/policies?city_id=<%= params[:city_id]%>" target="_blank">Policies</a> and <a href="/terms?city_id=<%= params[:city_id]%>" target="_blank">Terms &amp; Conditions</a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-3">
+                  <ul class="social">
+                    <li><a href="https://www.facebook.com/frools/" target="_blank">Like us on <i class="icon fb sprite"></i></a>
+                    </li>
+                    <!-- <li>
+                        <a href="#">
+                          Follow us on
+                          <i class="icon twit sprite"></i>
+                        </a>
+                      </li> -->
+                  </ul>
+                </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% unless params[:city_id].present? %>
+  <%= render "layouts/modal" %>
+<% end %>

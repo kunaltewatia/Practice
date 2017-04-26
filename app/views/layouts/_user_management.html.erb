@@ -1,0 +1,6 @@
+<li class="<% if ['customers'].include?(controller.controller_name) %> active <%end%>">
+  <a href="#"><i class="fa fa-user fa-fw"></i> User Management<span class="fa arrow"></span></a>
+  <ul class="nav nav-second-level">
+    <li class="<%= active?('customers') %>"><%= link_to 'Customers', customers_path %></li>
+  </ul>
+</li>

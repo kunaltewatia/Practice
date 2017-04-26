@@ -1,0 +1,83 @@
+
+<%- model_class = Customer -%>
+<div class="pull-left">
+  <%= link_to t('.back',
+              default: t('helpers.links.back')),
+              customers_url,
+              class: 'btn btn-default' %>
+</div>
+<div class="pull-right">
+  <%= link_to t('.destroy',
+              default: t('helpers.links.destroy')),
+              customer_path(@customer),
+              method: 'delete',
+              data: {
+                confirm: t('.confirm', default: t('helpers.links.confirm',
+                                                  default: 'Are you sure?'))
+              },
+              class: 'btn btn-danger' %>
+</div>
+<br/><br/>
+<div>
+  <h1> <%= @customer.full_name %> </h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-8">
+  <h3>Address:</h3>
+  <h5><%= customer_full_addr(@customer) %></h5>
+  </div>
+</div>
+
+<h2>Subscriptions</h2><br/>
+<%= link_to 'Add New Subscription', new_customer_subscription_path(@customer),
+              data: { toggle: "modal", target: '#subs_modal_id' },
+              remote: true, class: 'btn btn-primary' %>
+<table class = 'table table-striped table-hover'>
+  <tr>
+    <th>No.</th>
+    <th>Pack</th>
+    <th>Plan</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Payment Status</th>
+    <th>Payment Type</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  <body>
+    <% @subscriptions.each_with_index do |subscription, index| %>
+      <tr>
+        <td><%= (index + 1) %></td>
+        <td><%= subscription_pack_name(subscription) %></td>
+        <td><%= subscription.plan.name %></td>
+        <td><%= show_date(subscription.start_at)%></td>
+        <td><%= show_date(subscription.ends_at) %></td>
+        <td><%= subscription_pay_status(subscription)%></td>
+        <td><%= payment_type(subscription.payment_type) %></td>
+        <td><%= status(subscription) %></td>
+        <td>
+          <% if subscription.is_active == true %>
+            <%= link_to 'Renew',
+              customer_subscription_renew_path(customer_id: params[:id],
+                                               subscription_id: subscription.id,
+                                               ends_at: renew_date(subscription.ends_at)),
+              data: { toggle: "modal", target: '#subs_modal_id' }, remote: true,
+              class: 'btn btn-default' %>
+            <%= link_to 'Pause', new_customer_subscription_pause_path(
+              customer_id: params[:id], subscription_id: subscription.id,
+              ends_at: end_date_param(subscription.ends_at)),
+              data: { toggle: "modal", target: '#subs_modal_id' }, remote: true,
+              class: 'btn btn-default pauseBtn'%>
+          <% end %>
+          <%= link_to 'View',customer_subscription_path(customer_id: params[:id],
+          id: subscription.id), class: 'btn btn-default' %>
+          <%= link_to 'Delete', customer_subscription_path(customer_id: params[:id],
+            id: subscription.id), method: 'delete', "data-confirm":"Are you sure to delete this Subscription?", class: 'btn btn-default' %>
+        </td>
+      </tr>
+    <% end %>
+  </body>
+</table>
+<%=will_paginate @subscriptions, renderer: BootstrapPagination::Rails %>
+<%= render 'subscription_modal' %>

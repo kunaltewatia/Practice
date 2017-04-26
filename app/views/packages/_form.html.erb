@@ -1,0 +1,62 @@
+<%= form_for @package, html: { class: 'form-horizontal package' } do |f| %>
+
+   <% if @package.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'><%= pluralize(@package.errors.count, 'error') %> prohibited this package from being saved:</h3>
+      </div>
+      <div class='panel-body'>
+        <ul>
+        <% @package.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :plan_id, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.select :plan_id, options_from_collection_for_select(@plans, 'id', 'name', @package.plan_id), { prompt: 'Select..' } %>
+    </div>
+    <%= error_span(@package[:plan_id]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <%= error_span(@package[:name]) %>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :date, class: 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :date, class: 'form-control', id: 'package_date' %>
+    </div>
+    <%= error_span(@package[:date]) %>
+  </div><br/>
+
+  <div class='control-group'>
+    <% Product.all.each_with_index do |product, index| %>
+      <%= hidden_field_tag "package[plan_products_attributes[#{index}][id]]" %>
+      <%= check_box_tag "package[plan_products_attributes[#{index}][product_id]]",
+                        product.id %>
+      <%= label_tag product.name %>
+      <%= number_field_tag "package[plan_products_attributes[#{index}][quantity]]"
+                           package.plan_products[index].measurement_id%>
+      <%= label_tag 'Quantity' %>
+      <%= select_tag "package[plan_products_attributes[#{index}][measurement_id]]",
+                     options_from_collection_for_select(Measurement.all, 'id', 'name', @package.plan_products[index].measurement_id) %>
+      <%= label_tag 'Measurements' %>
+    <% end %>
+  </div><br/>
+
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            packages_path, class: 'btn btn-default' %>
+
+<% end %>

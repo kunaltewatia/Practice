@@ -1,0 +1,42 @@
+<%= form_for @feedback_category, html: { class: 'form-horizontal feedback_category' } do |f| %>
+  <% if @feedback_category.errors.any? %>
+    <div id='error_expl' class='panel panel-danger'>
+      <div class='panel-heading'>
+        <h3 class='panel-title'>
+          <%= pluralize(@feedback_category.errors.count, "error") %>
+          prohibited this feedback_category from being saved:
+        </h3>
+      </div>
+        <ul>
+        <% @feedback_category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+    </div>
+  <% end %>
+
+  <div class='control-group'>
+    <%= f.label :name, class: 'control-label' %>
+    <div  class='controls' >
+      <%= f.text_field :name, class: 'form-control'%>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :description, class: 'control-label' %>
+    <div  class='controls' >
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='control-group'>
+    <%= f.label :is_active, class: 'control-label'  %>
+    <div  class='controls' >
+      <%= f.check_box :is_active, class: 'form-control' %>
+    </div>
+  </div>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+            feedback_categories_path, class: 'btn btn-default' %>
+<% end %>
